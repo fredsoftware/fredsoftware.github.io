@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Using Cordova for iOS &amp; Android Development - FredLawl's Blog</title>
+  <meta name="author" content="Frederick Lawler">
+
+  
+  <meta name="description" content="Recently I had the pleasure of writing my first mobile app. Without a background
+or any general knowledge of Objective-C, I had to use my skills as a &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://fredlawl.github.io/article/using-cordova-for-ios-and-android-development">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="FredLawl's Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/libs/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">FredLawl's Blog</a></h1>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:fredlawl.github.io" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Using Cordova for iOS &amp; Android Development</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-11T22:25:40-06:00" pubdate data-updated="true">January 11, 2014</time>
+        
+           | <a href="#disqus_thread"
+             data-disqus-identifier="http://fredlawl.github.io">Comments</a>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>Recently I had the pleasure of writing my first mobile app. Without a background
+or any general knowledge of Objective-C, I had to use my skills as a JavaScript
+programmer to bridge the two together using a Open Sourced framework called <a href="http://cordova.apache.org/">Cordova</a>.</p>
+
+<!-- more -->
+
+
+<h2>Overview of Cordova</h2>
+
+<p>Cordova is a mobile app framework with an emphasis on cross-compability of all
+major mobile devices in the market. With a few vendor plugins, most of
+functionality that you would expect from app can be easily installed and put to
+use. Cordova also has extensive documentation that clearly outlines its usage
+and configuration. The documentation also includes notes on creating custom
+plugins if you can&rsquo;t find any others on git that meet your criteria.</p>
+
+<h3>Some links to get started:</h3>
+
+<ul>
+<li><a href="http://cordova.apache.org/docs/en/3.2.0/index.html">Corodva Docs</a> for full documentation.</li>
+<li><a href="http://cordova.apache.org/docs/en/3.2.0/guide_cli_index.md.html#The%20Command-Line%20Interface">Cordova CLI</a> for getting started with cordova.</li>
+<li><a href="http://cordova.apache.org/docs/en/3.2.0/_index.html">Cordova Index</a> for documentation index.</li>
+<li><a href="http://maxogden.com/fast-webview-applications.html">Fast WebView Applications</a> for useful tips/tricks to making your apps work nicely with CSS and HTML5</li>
+</ul>
+
+
+<h2>Solutions to Problems</h2>
+
+<p>Working with Cordova was fairly simple and straight forward. The documentation
+allowed me to create an app from start to finish with minimal headaches. Through
+the development process there were some obstacles to overcome in a short period
+of time.</p>
+
+<p>An obstacle that was particularly hard to adjust to was the fact that the
+project called for a mobile-site version, and a app version of the app.
+Overcoming that obstacle was a challenge because links could not be treated in
+the same manner. When compiled, the app relies on its internal file system to
+load pages&mdash;where as a website would rely on its domain. The solution to this
+problem was simple&mdash;routing system.</p>
+
+<p>The issue with routing was that the routing system could not be based on a
+absolute URL system. The absolute URL system would work best for a site, but not
+for a app due to the difference in the file systems. The solution to that was to
+implement a hash/push state routing system, which would allow the URLs to work
+not only on a hosted website, but also the app itself.</p>
+
+<p>Another problem I encountered that was absolutely terrifying to deal with was
+external links vs internal links within the app/mobie-site. After hours of
+querying Google for decent solutions to the problem, I barely found a solution.
+The solution to the problem was to use Cordova&rsquo;s InAppBrowser
+(which was not inherently clear&mdash;hence the hours of Google search) plugin&rsquo;s <code>window.open('http://url.com', '_system', 'location=no');</code>
+which only works for iOS and a few other devices. Android was able to utilize <code>window.location = 'http://url.com';</code>.</p>
+
+<p>Part of the reason this was a difficult problem was because that Cordova used
+the WebViews that the different devices supplied. The WebViews could be best
+described as web-browsers without the browsing (hence cross-compatibility via
+HTML and JavaScript).</p>
+
+<h2>Conclusion</h2>
+
+<p>Overall Cordova was fairly fun to work with. No framework is without its quirks
+and there will be many more obstacles for me in the future. The whole experience
+really was exciting and I would recommend this framework to other developers.
+Here&rsquo;s looking forward to future app development with Cordova!</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Frederick Lawler</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2014-01-11T22:25:40-06:00" pubdate data-updated="true">January 11, 2014</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/articles/categories/android/'>Android</a>, <a class='category' href='/articles/categories/html5/'>HTML5</a>, <a class='category' href='/articles/categories/javascript/'>JavaScript</a>, <a class='category' href='/articles/categories/ios/'>iOS</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/article/i-have-some-explaining-to-do/" title="Previous Post: I Have Some Explaining to Do">&laquo; I Have Some Explaining to Do</a>
+      
+      
+    </p>
+  </footer>
+</article>
+
+  <section>
+    <h1>Comments</h1>
+    <div id="disqus_thread" aria-live="polite"><noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+  </section>
+
+</div>
+
+<aside class="sidebar">
+  
+    
+<section>
+        <span>
+                <img src="http://www.gravatar.com/avatar/d0510239f9cb0090de6edb1e31a5e561" alt="Gravatar of Frederick Lawler " title="Gravatar of Frederick Lawler" />
+        </span>
+</section>
+<section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/article/using-cordova-for-ios-and-android-development/">Using Cordova for iOS &amp; Android Development</a>
+      </li>
+    
+      <li class="post">
+        <a href="/article/i-have-some-explaining-to-do/">I Have Some Explaining to Do</a>
+      </li>
+    
+  </ul>
+</section>
+
+<section>
+  <h1>GitHub Repos</h1>
+  <ul id="gh_repos">
+    <li class="loading">Status updating...</li>
+  </ul>
+  
+  <a href="https://github.com/fredlawl">@fredlawl</a> on GitHub
+  
+  <script type="text/javascript">
+    $(document).ready(function(){
+        if (!window.jXHR){
+            var jxhr = document.createElement('script');
+            jxhr.type = 'text/javascript';
+            jxhr.src = '/javascripts/libs/jXHR.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(jxhr, s);
+        }
+
+        github.showRepos({
+            user: 'fredlawl',
+            count: 0,
+            skip_forks: true,
+            target: '#gh_repos'
+        });
+    });
+  </script>
+  <script src="/javascripts/github.js" type="text/javascript"> </script>
+</section>
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2014 - Frederick Lawler -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+<script type="text/javascript">
+      var disqus_shortname = 'fredlawl';
+      
+        
+        // var disqus_developer = 1;
+        var disqus_identifier = 'http://fredlawl.github.io/article/using-cordova-for-ios-and-android-development/';
+        var disqus_url = 'http://fredlawl.github.io/article/using-cordova-for-ios-and-android-development/';
+        var disqus_script = 'embed.js';
+      
+    (function () {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    }());
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

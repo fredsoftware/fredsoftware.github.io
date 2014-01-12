@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[FredLawl's Blog]]></title>
-  <link href="http://fredlawl.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: iOS | FredLawl's Blog]]></title>
+  <link href="http://fredlawl.github.io/articles/categories/ios/atom.xml" rel="self"/>
   <link href="http://fredlawl.github.io/"/>
   <updated>2014-01-11T23:30:55-06:00</updated>
   <id>http://fredlawl.github.io/</id>
@@ -82,37 +82,6 @@ HTML and JavaScript).</p>
 and there will be many more obstacles for me in the future. The whole experience
 really was exciting and I would recommend this framework to other developers.
 Here&rsquo;s looking forward to future app development with Cordova!</p>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[I Have Some Explaining to Do]]></title>
-    <link href="http://fredlawl.github.io/article/i-have-some-explaining-to-do/"/>
-    <updated>2014-01-11T19:31:13-06:00</updated>
-    <id>http://fredlawl.github.io/article/i-have-some-explaining-to-do</id>
-    <content type="html"><![CDATA[<p>I am Frederick Lawler and I make websites. I have worked at the company 40Digits
-for close to three years. I have worked very closely with JavaScript, jQuery,
-PHP, SQL, and HTML/CSS.</p>
-
-<!-- more -->
-
-
-<h2>Why not Wordpress?</h2>
-
-<p>I decided to use Octopress and Git as my source of blogging software because, as
-a developer I need not concern myself with the style or hassle of making a style
-for my own personal blog. I want my blog to focus on personal questions,
-stories, and you guessed it&mdash;code!</p>
-
-<p>Another benefit to a software such as Git and Octopress, I don&rsquo;t need to sit
-around and find decent syntax highlighting tools. I can just simple put my code
-into here.</p>
-
-<h2>Intentions</h2>
-
-<p>I do not expect many people to visit my blog, and I also do not care if many
-people do. I am using this blog as a means to get out questions, observations,
-documentation, and code.</p>
 ]]></content>
   </entry>
   
