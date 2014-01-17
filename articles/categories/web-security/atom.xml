@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Web Security | FredLawl's Blog]]></title>
+  <link href="http://fredlawl.github.io/articles/categories/web-security/atom.xml" rel="self"/>
+  <link href="http://fredlawl.github.io/"/>
+  <updated>2014-01-16T19:13:44-06:00</updated>
+  <id>http://fredlawl.github.io/</id>
+  <author>
+    <name><![CDATA[Frederick Lawler]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Email Obfuscation]]></title>
+    <link href="http://fredlawl.github.io/article/email-obfuscation/"/>
+    <updated>2014-01-16T18:50:37-06:00</updated>
+    <id>http://fredlawl.github.io/article/email-obfuscation</id>
+    <content type="html"><![CDATA[<p>Today at work I got a task from a client regarding Email Obfuscation. Obviously
+we all come across scenarios where we need to better secure our sites for our
+clients. But what about emails? It is common for a random bot to eventually
+crawl to our sites and pull all
+<code>&lt;a href="mailto:someemail@somedomain.com"&gt;someemail@somedomain.com&lt;/a&gt;</code> tags
+from our code and then add the emails to some job queue to spam the f*** out of
+us.</p>
+
+<!-- more -->
+
+
+<p>Granted, it is important we prevent spam, but to what extent shall we do it? I
+was suggested the article <a href="http://techblog.tilllate.com/2008/07/20/ten-methods-to-obfuscate-e-mail-addresses-compared/">Nine ways to obfuscate e-mail addresses compared</a> (Pardon the article title, there&rsquo;s only three options I see on the page,
+unless I missed something). The website offers three solutions that may solve
+our problem. The stats of the graph speak for themselves, but Google searches
+suggest many other solutions to the problem as well. Are all the methods 100%
+full-proof&mdash;-nope.</p>
+
+<p>One could go crazy trying to find or figure out the absolute best way to
+obfuscate our emails. Many of the solutions will stop most bots; however, as
+technology improves, the more &ldquo;smart&rdquo; spam bots become. Why do people have to
+ruin everything for everyone else? I don&rsquo;t know, and neither will any of us.
+The reality is, it doesn&rsquo;t matter what we do.</p>
+
+<p>Let us think for a moment. We can stop the vast majority of bots, but, we can&rsquo;t
+stop all of them without destroying a users' experience&mdash;and even then we&rsquo;re
+not protected. The reality is, if a spammer <em>really</em> wanted to target your site,
+they can.</p>
+]]></content>
+  </entry>
+  
+</feed>
