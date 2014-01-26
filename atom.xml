@@ -4,7 +4,7 @@
   <title><![CDATA[FredLawl's Blog]]></title>
   <link href="http://fredlawl.github.io/atom.xml" rel="self"/>
   <link href="http://fredlawl.github.io/"/>
-  <updated>2014-01-16T19:13:44-06:00</updated>
+  <updated>2014-01-26T17:24:14-06:00</updated>
   <id>http://fredlawl.github.io/</id>
   <author>
     <name><![CDATA[Frederick Lawler]]></name>
@@ -12,6 +12,190 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Breaking away from PHP]]></title>
+    <link href="http://fredlawl.github.io/article/breaking-away-from-php/"/>
+    <updated>2014-01-26T16:17:55-06:00</updated>
+    <id>http://fredlawl.github.io/article/breaking-away-from-php</id>
+    <content type="html"><![CDATA[<p>Today marked the day where I am took my first steps to expanding my horizons
+through learning the Python language. A couple of weeks ago, during a meeting
+at work, a few other developers and I discussed plans to design and develop a
+new CRM for the company.</p>
+
+<!-- more -->
+
+
+<h2>The CRM</h2>
+
+<p>The CRM was broken up into three pieces: a database, a web-service, and a
+front-end. The database piece is to store our data such as: users, tasks,
+events, and discussions. The web-service piece is for syncing up various web
+services across some of the online systems the company uses. The front-end part
+of the CRM is a means to provide a easy interface to enter time, create
+projects, and display information stored within the database.</p>
+
+<h2>Choice to move</h2>
+
+<p>My task was to lead a small team in the development of the web-service portion
+of the CRM. The various programming languages that came across the table were:
+PHP, Ruby, and Python. The developers of my team, including myself, are all
+extremely comfortable using PHP&mdash;since we use that as our primary go-to language
+for web development. Though we were comfortable with PHP, we saw this as an
+opportunity to expand our knowledge and we eventually decided on using Python
+for this portion of the CRM.</p>
+
+<p>We choose Python over PHP for a couple of reasons. The primary reason we chose
+Python was because of the scope of the project. The scope calls for parallel
+processing because the web-service needs to sync data across many web-based
+applications. The more services that are added to the project, the slower the
+syncing and processing. Since PHP does not handle forking and threading very
+nicely, Python seemed to be the optimal choice. The second reason we chose
+Python was because of the ability to add technologies on the fly. This will be
+important through the development process.</p>
+
+<h2>Getting Started</h2>
+
+<p>A part of the web-service piece is to be able to accept and parse webhooks that
+are passed to it by the web services. Clearly, there had to be a way to serve
+python files over the internet. Instead of designing a system to accept and
+serve python files, I came to the conclusion of using the <a href="https://code.google.com/p/modwsgi/">mod_wsgi</a> for Apache combined with <a href="http://www.cherrypy.org/">CherryPy</a>.
+To avoid re-inventing the wheel.</p>
+
+<p>Since this was the first time ever considering Python for a web project, I had
+to overcome the learning curve of installing and setting up wsgi_mod. To some,
+this may be an easy task, but as a first-timer I had some difficulties.</p>
+
+<p>I did not begin the process by installing it on my own hosted server, instead I
+wanted to try installing it on my local development. Since MacOSX is my primary
+development platform I did the following:</p>
+
+<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+<span class='line-number'>17</span>
+<span class='line-number'>18</span>
+<span class='line-number'>19</span>
+<span class='line-number'>20</span>
+<span class='line-number'>21</span>
+<span class='line-number'>22</span>
+<span class='line-number'>23</span>
+<span class='line-number'>24</span>
+<span class='line-number'>25</span>
+<span class='line-number'>26</span>
+<span class='line-number'>27</span>
+<span class='line-number'>28</span>
+<span class='line-number'>29</span>
+<span class='line-number'>30</span>
+<span class='line-number'>31</span>
+<span class='line-number'>32</span>
+<span class='line-number'>33</span>
+<span class='line-number'>34</span>
+<span class='line-number'>35</span>
+<span class='line-number'>36</span>
+<span class='line-number'>37</span>
+<span class='line-number'>38</span>
+<span class='line-number'>39</span>
+<span class='line-number'>40</span>
+<span class='line-number'>41</span>
+<span class='line-number'>42</span>
+<span class='line-number'>43</span>
+<span class='line-number'>44</span>
+<span class='line-number'>45</span>
+<span class='line-number'>46</span>
+<span class='line-number'>47</span>
+<span class='line-number'>48</span>
+<span class='line-number'>49</span>
+<span class='line-number'>50</span>
+<span class='line-number'>51</span>
+<span class='line-number'>52</span>
+<span class='line-number'>53</span>
+<span class='line-number'>54</span>
+<span class='line-number'>55</span>
+<span class='line-number'>56</span>
+<span class='line-number'>57</span>
+<span class='line-number'>58</span>
+<span class='line-number'>59</span>
+</pre></td><td class='code'><pre><code class=''><span class='line'>$ brew tap homebrew/apache
+</span><span class='line'>$ brew install mod_wsgi
+</span><span class='line'>$ cd /etc/apache2
+</span><span class='line'>$ subl . # Because I use sublime text 2 as my editor of choice
+</span><span class='line'>
+</span><span class='line'># Copied and pasted:
+</span><span class='line'># LoadModule wsgi_module /usr/local/Cellar/mod_wsgi/3.4/libexec/mod_wsgi.so
+</span><span class='line'># into http.conf
+</span><span class='line'>
+</span><span class='line'># Opened up my vhosts file and added, based off recommended configurations:
+</span><span class='line'># &lt;VirtualHost *:80&gt;
+</span><span class='line'>#        ServerName python.local
+</span><span class='line'>#        ServerAlias www.python.local
+</span><span class='line'>#        DocumentRoot "/Users/fredlawl/Sites/python/www"
+</span><span class='line'>#
+</span><span class='line'>#        Alias /robots.txt /Users/fredlawl/Sites/python/www/robots.txt
+</span><span class='line'>#        Alias /favicon.ico /Users/fredlawl/Sites/python/www/favicon.ico
+</span><span class='line'>#        Alias /media/ /Users/fredlawl/Sites/python/www/media/
+</span><span class='line'>#
+</span><span class='line'>#        &lt;Directory /Users/fredlawl/Sites/python/www&gt;
+</span><span class='line'>#                Order allow,deny
+</span><span class='line'>#                Allow from all
+</span><span class='line'>#        &lt;/Directory&gt;
+</span><span class='line'>#
+</span><span class='line'>#        WSGIDaemonProcess python.local processes=2 threads=15 display-name=%{GROUP}
+</span><span class='line'>#        WSGIProcessGroup python.local
+</span><span class='line'>#        WSGIScriptAlias / /Users/fredlawl/Sites/python/wsgi-scripts/app.wsgi
+</span><span class='line'>#
+</span><span class='line'>#        &lt;Directory /Users/fredlawl/Sites/python/wsgi-scripts&gt;
+</span><span class='line'>#                Order allow,deny
+</span><span class='line'>#                Allow from all
+</span><span class='line'>#        &lt;/Directory&gt;
+</span><span class='line'># &lt;/VirtualHost&gt;
+</span><span class='line'># ... then saved.
+</span><span class='line'>
+</span><span class='line'>$ cd /Users/fredlawl/Sites
+</span><span class='line'>$ mkdir python
+</span><span class='line'>$ cd python
+</span><span class='line'>$ mkdir www
+</span><span class='line'>$ mkdir wsgi-scripts
+</span><span class='line'>$ cd wsgi-scripts
+</span><span class='line'>$ nano app.wsgi
+</span><span class='line'>
+</span><span class='line'># pasted in the following:
+</span><span class='line'># def application(environ, start_response):
+</span><span class='line'>#     status = '200 OK'
+</span><span class='line'>#     output = 'Hello World!'
+</span><span class='line'>#
+</span><span class='line'>#     response_headers = [('Content-type', 'text/plain'),
+</span><span class='line'>#                         ('Content-Length', str(len(output)))]
+</span><span class='line'>#     start_response(status, response_headers)
+</span><span class='line'>#
+</span><span class='line'>#     return [output]
+</span><span class='line'>
+</span><span class='line'>$ sudo apachectl restart
+</span><span class='line'>$ sudo nano /etc/hosts
+</span><span class='line'>
+</span><span class='line'># added in
+</span><span class='line'># 127.0.0.1     python.local</span></code></pre></td></tr></table></div></figure>
+
+
+<p>And there it was&hellip;Hello World! was displayed on my screen at <code>http://python.local/</code></p>
+
+<p>I have not gotten into the installation of CherryPy just yet, but that is a post
+for another day.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Email Obfuscation]]></title>
